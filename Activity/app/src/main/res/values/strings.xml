@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Activity</string>
+    <string name="welcome">Welcome!!</string>
+    <string name="register">Register</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_id">Enter ID</string>
+    <string name="submit">Submit</string>
+    <string name="Name">Name</string>
+    <string name="email">Email</string>
+    <string name="id">ID:</string>
+    <string name="deprt">Dept:</string>
+    <string name="cancel">Cancel</string>
+    <string name="select">Select</string>
+    <string name="computerScience">Computer Science</string>
+    <string name="softare">Software Info. System</string>
+    <string name="bio">Bio Informatics</string>
+    <string name="dataSicence">Data Science</string>
+
+</resources>
