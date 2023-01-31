@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Homework02</string>
+    <string name="weight">Weight:</string>
+    <string name="weightview">N/A</string>
+    <string name="setweight">Set</string>
+    <string name="drinks">#Drinks:0</string>
+    <string name="baclevel">BAC Level: 0.000</string>
+    <string name="you_are_safe">You\'re Safe</string>
+    <string name="status">Your Status</string>
+    <string name="viewdrinks">View Drinks</string>
+    <string name="addDrinks">Add Drink</string>
+    <string name="reset">Reset</string>
+    <string name="weightlbs">Weight (lbs):</string>
+    <string name="enterweight">Enter Weight</string>
+    <string name="gender">Gender</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="cancel">Cancel</string>
+    <string name="Set">SET</string>
+    <string name="drinksize">Drink Size</string>
+    <string name="drink1oz">1 oz</string>
+    <string name="drink5oz">5 oz</string>
+    <string name="drink12oz">12 oz</string>
+    <string name="alcohol">Alcohol % :</string>
+    <string name="defualtpercentage">12%</string>
+    <string name="calcel">Cancel</string>
+    <string name="addrinks">Add Drinks</string>
+</resources>
