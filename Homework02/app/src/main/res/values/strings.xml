@@ -25,4 +25,5 @@
     <string name="defualtpercentage">12%</string>
     <string name="calcel">Cancel</string>
     <string name="addrinks">Add Drinks</string>
+    <string name="close">Close</string>
 </resources>
