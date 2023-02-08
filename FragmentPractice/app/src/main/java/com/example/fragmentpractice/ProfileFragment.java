@@ -65,9 +65,12 @@ public class ProfileFragment extends Fragment {
         getActivity().setTitle("Profile");
         binding.textViewWeight.setText(String.valueOf(mProfile.getWeight()));
         binding.textViewGender.setText(mProfile.getGender());
+        binding.textViewYourName.setText("Eshetu Wekjira");
         binding.buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.textViewGender.setText("");
+                binding.textViewWeight.setText("");
                 mlistener.closeProfile();
             }
         });

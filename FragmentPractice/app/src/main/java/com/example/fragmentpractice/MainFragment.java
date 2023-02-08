@@ -14,24 +14,16 @@ import android.widget.Toast;
 
 import com.example.fragmentpractice.databinding.FragmentMainBinding;
 
-
 public class MainFragment extends Fragment {
     Profile profile;
     private double setWeightvalues =0.0;
     private double values =0;
-    private  String setGender ="";
+    private  String setGender ="N/A";
     public void setSetGender(String gender){
         this.setGender =gender;
     }
     public void setSetWeightvalues(double values){
         this.setWeightvalues =values;
-    }
-
-    public double getSetWeightvalues() {
-        return setWeightvalues;
-    }
-    public String getSetGender(){
-        return setGender;
     }
 
     public MainFragment() {
@@ -56,14 +48,17 @@ public class MainFragment extends Fragment {
         getActivity().setTitle("Main");
 
         binding.textViewYourName.setText("Eshetu Wekjira");
-
-        binding.textViewWeight.setText(String.valueOf(setWeightvalues));
-        binding.textViewGender.setText(setGender);
-
+          if(setWeightvalues ==0 && setGender=="N/A"){
+              binding.textViewWeight.setText("N/A");
+              binding.textViewGender.setText("N/A");
+           }else{
+              binding.textViewWeight.setText(String.valueOf(setWeightvalues)+" lbs");
+              binding.textViewGender.setText(setGender);
+        }
         binding.buttonSetWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mListener.setWeight();
+                mListener.setWeight();
             }
         });
         binding.buttonSetGender.setOnClickListener(new View.OnClickListener() {
@@ -75,25 +70,29 @@ public class MainFragment extends Fragment {
     binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+         try {
+             String gender = binding.textViewGender.getText().toString();
+             if( setWeightvalues == 0){
+                 Toast.makeText(getActivity(), "set up weitht", Toast.LENGTH_SHORT).show();
+             }
+             else if(gender=="N/A"){
+                 Toast.makeText(getActivity(), "select gender", Toast.LENGTH_SHORT).show();
+             }
+             else {
+                 Profile profile = new Profile(setWeightvalues, gender);
+                 mListener.setSubmit(profile);
+             }
+         }catch (Exception ex){
+             Toast.makeText(getActivity(), "get profiles", Toast.LENGTH_SHORT).show();
+         }
 
-          String gender = binding.textViewGender.getText().toString();
-          if(gender.isEmpty()){
-              Toast.makeText(getActivity(), "select gender", Toast.LENGTH_SHORT).show();
-          }
-          else if( setWeightvalues <= 0){
-              Toast.makeText(getActivity(), "set up weitht", Toast.LENGTH_SHORT).show();
-          }
-          else {
-              Profile profile = new Profile(setWeightvalues, gender);
-              mListener.setSubmit(profile);
-          }
            }
     });
     binding.buttonReset.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            binding.textViewGender.setText("");
-            binding.textViewWeight.setText("");
+            binding.textViewGender.setText("N/A");
+            binding.textViewWeight.setText("N/A");
             mListener.setReset();
         }
     });
