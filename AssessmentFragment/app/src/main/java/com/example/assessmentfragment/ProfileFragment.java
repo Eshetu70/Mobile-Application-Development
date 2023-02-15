@@ -26,7 +26,7 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM_PROFILE = "ARG_PARAM_PROFILE";
     private static final String ARG_PARAM2 = "param2";
-    //UserAdapter adapter;
+    UserAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private Profile mProfile;
@@ -51,6 +51,17 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             mProfile = (Profile) getArguments().getSerializable(ARG_PARAM_PROFILE );
             profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
+            profile.add(mProfile);
 
 
             //  mParam2 = getArguments().getString(ARG_PARAM2);
@@ -69,15 +80,14 @@ public class ProfileFragment extends Fragment {
     }
     ListView listview;
 
-  ArrayAdapter<String> adapter;
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
            listview =binding.listview;
-           //adapter = new UserAdapter(getActivity(), profile);
-            adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, temp);
+           adapter = new UserAdapter(getActivity(), profile);
+
+            //adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, temp);
            listview.setAdapter(adapter);
 
         binding.buttonClose.setOnClickListener(new View.OnClickListener() {

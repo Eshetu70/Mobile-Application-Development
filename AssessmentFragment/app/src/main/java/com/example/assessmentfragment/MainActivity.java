@@ -7,7 +7,8 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentListener, SetWeightFragment.SetWeightFragmentListener, SetGenderFragment.SetGenderFragmentListener, ProfileFragment.ProfileFragmentListener {
-    ArrayList<Profile> profile = new ArrayList<>();
+    ArrayList<String> profiles = new ArrayList<>();
+    ArrayList<Double> profile = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
 
     @Override
     public void setBackWeight(double weight) {
+        profile.add(weight);
         MainFragment fragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("tag");
         if(fragment!=null){
          fragment.setSelectedWeight(weight);
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
 
     @Override
     public void setGenderback(String gender) {
+        profiles.add(gender);
     MainFragment fragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("tag");
     if(fragment !=null){
         fragment.setSelectedGender(gender);
