@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ScrobableListView</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome</string>
+    <string name="genres">Genres</string>
+    <string name="oz">oz</string>
+    <string name="alcohol">Alcohol</string>
+</resources>

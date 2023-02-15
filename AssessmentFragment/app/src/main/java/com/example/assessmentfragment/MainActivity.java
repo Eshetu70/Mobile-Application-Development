@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentListener, SetWeightFragment.SetWeightFragmentListener, SetGenderFragment.SetGenderFragmentListener, ProfileFragment.ProfileFragmentListener {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentListener, SetWeightFragment.SetWeightFragmentListener, SetGenderFragment.SetGenderFragmentListener, ProfileFragment.ProfileFragmentListener {
+    ArrayList<Profile> profile = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
