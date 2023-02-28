@@ -23,6 +23,7 @@ public class DataService {
         add(new City("JP","Kyoto", 35.0981152,135.5784441));
         add(new City("JP","Hashimoto", 34.3128568,135.5334912));
         add(new City("JP","Osaka", 34.677578,135.4158263));
+        add(new City("Eth","Ethiopia", 9.1450,40.4897));
     }};
 
     static class City implements Serializable {

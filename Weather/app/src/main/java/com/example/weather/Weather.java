@@ -25,12 +25,9 @@ public class Weather {
             this.description = firstJson.getString("description");
             this.icon = firstJson.getString("icon");
         }
-
         JSONObject cloudsJsonObject = json.getJSONObject("clouds");
         this.cloudiness = cloudsJsonObject.getDouble("all");
-
     }
-
     public Weather() {
     }
 
