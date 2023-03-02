@@ -13,6 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.assessment5.databinding.FragmentRegisterBinding;
+import com.example.assessment5.models.Auth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegisterFragment extends Fragment {
     public RegisterFragment() {
@@ -20,6 +34,7 @@ public class RegisterFragment extends Fragment {
     }
 
     FragmentRegisterBinding binding;
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +64,56 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
                     //perform the registration ..
+
+
+                    RequestBody formBody = new FormBody.Builder()
+                            .add("fname", fname)
+                            .add("lname", lname)
+                            .add("email", email)
+                            .add("password", password)
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("https://www.theappsdr.com/api/signup")
+                            .post(formBody)
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            if(response.isSuccessful()){
+
+                                String body = response.body().string();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(body);
+                                    Auth auth = new Auth(jsonObject);
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mListener.authSuccessful(auth);
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }else{
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getActivity(), "unable to sign in", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+
+                        }
+                    });
+
                 }
             }
         });
@@ -66,7 +131,7 @@ public class RegisterFragment extends Fragment {
     }
 
     interface RegisterListener {
-        void authSuccessful();
+        void authSuccessful(Auth auth);
         void gotoLogin();
     }
 }

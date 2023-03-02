@@ -137,6 +137,8 @@ public class LoginFragment extends Fragment {
     }
 
     interface LoginListener {
+        void authSuccessful();
+
         void authSuccessful(Auth auth);
         void gotoRegister();
     }
