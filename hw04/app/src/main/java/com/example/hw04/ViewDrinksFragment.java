@@ -15,8 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.hw04.databinding.FragmentViewDrinksBinding;
+import com.example.hw04.databinding.ItemViewRowBinding;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewDrinksFragment extends Fragment {
@@ -62,19 +66,48 @@ public class ViewDrinksFragment extends Fragment {
         adapter= new UserAdapter(getActivity(),mDrinks);
         binding.listView.setAdapter(adapter);
 
+
+        binding.imageViewAcend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(mDrinks, new Comparator<Drink>() {
+                    @Override
+                    public int compare(Drink drink, Drink t1) {
+                        return (int) (drink.getAlcohol()-t1.getAlcohol());
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        binding.imageViewDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(mDrinks, new Comparator<Drink>() {
+                    @Override
+                    public int compare(Drink drink, Drink t1) {
+                        return (int) (-1*(drink.getAlcohol()-t1.getAlcohol()));
+
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.closeViewDrinks();
             }
         });
-        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Drink drink = mDrinks.get(i);
-                adapter.remove(drink);
-            }
-        });
+//        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Drink drink = mDrinks.get(i);
+//                adapter.remove(drink);
+//            }
+//        });
+
     }
 
     void displayPrevious(){
@@ -104,17 +137,31 @@ public class ViewDrinksFragment extends Fragment {
          @NonNull
          @Override
          public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+             ItemViewRowBinding mBinding;
             if(convertView ==null){
-                convertView =getLayoutInflater().inflate(R.layout.item_view_row, parent,false);
+                mBinding =ItemViewRowBinding.inflate(getLayoutInflater(), parent, false);
+//                convertView =getLayoutInflater().inflate(R.layout.item_view_row, parent,false);
+                convertView =mBinding.getRoot();
+                convertView.setTag(mBinding);
+            }else{
+                mBinding = (ItemViewRowBinding) convertView.getTag();
             }
-            Drink drink = mDrinks.get(position);
-             TextView textViewAlcohol = convertView.findViewById(R.id.textViewAlcohol);
-              TextView textViewdate= convertView.findViewById(R.id.textViewdate);
-              TextView textView11 =convertView.findViewById(R.id.textView11);
-              textViewAlcohol.setText(String.valueOf(drink.getAlcohol()));
-              textViewdate.setText(drink.getAddedOn().toString());
-              textView11.setText(String.valueOf(drink.getSize()));
+              Drink drink = mDrinks.get(position);
+             mBinding.textViewAlcohol.setText(String.valueOf(drink.getAlcohol()));
+             mBinding.textViewdate.setText(drink.getAddedOn().toString());
+             mBinding.textView11.setText(String.valueOf(drink.getSize()));
+             mBinding.imageView2.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                    adapter.remove(drink);
+                 }
+             });
+//             TextView textViewAlcohol = convertView.findViewById(R.id.textViewAlcohol);
+//              TextView textViewdate= convertView.findViewById(R.id.textViewdate);
+//              TextView textView11 =convertView.findViewById(R.id.textView11);
+//              textViewAlcohol.setText(String.valueOf(drink.getAlcohol()));
+//              textViewdate.setText(drink.getAddedOn().toString());
+//              textView11.setText(String.valueOf(drink.getSize()));
 
              return convertView;
          }
