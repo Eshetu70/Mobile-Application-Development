@@ -66,6 +66,7 @@ public class LoginFragment extends Fragment {
 
                                }else{
                                    Log.d("demo", "onComplete: logged is not successfully");
+                                   Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                                }
                            }
