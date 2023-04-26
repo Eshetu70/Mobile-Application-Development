@@ -81,9 +81,10 @@ public class CartFragment extends Fragment {
                 for (QueryDocumentSnapshot document : value) {
                    Product product =document.toObject(Product.class);
                     mProducts.add(product);
-                    binding.textViewTotal.setText("Total Product "+ product.getPrice());
+//                    binding.textViewTotal.setText("Total Product "+ product.getPrice());
                 }
                 adapter.notifyDataSetChanged();
+                displayTotal();
             }
         });
     }
@@ -98,7 +99,15 @@ public class CartFragment extends Fragment {
         }
     }
 
+    void displayTotal(){
 
+        double total =0.0;
+        for (Product product :mProducts) {
+            total =total + Double.parseDouble(product.getPrice());
+            binding.textViewTotal.setText(String.format("Total: %.2f ", total));
+
+        }
+    }
 
 
 
