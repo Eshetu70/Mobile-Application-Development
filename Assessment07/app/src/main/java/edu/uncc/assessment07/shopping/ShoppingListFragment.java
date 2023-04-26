@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -57,6 +58,7 @@ public class ShoppingListFragment extends Fragment {
     FragmentShoppingListBinding binding;
     ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<>();
     ShoppingListAdapter adapter;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -168,8 +170,13 @@ public class ShoppingListFragment extends Fragment {
                     public void onClick(View v) {
                         int count =  mShoppingListItem.getQuantity();
                         if(count >1){
-                            count = count +1;
-                            mBinding.textViewQuantity.setText(String.valueOf(count));
+//                            count = count +1;
+//                            mBinding.textViewQuantity.setText(String.valueOf(count));
+                            db.collection("lists").document(mShoppingList.getDocId())
+                                    .collection("items")
+                                    .document(mShoppingListItem.getDocId())
+                                    .update("quantity", FieldValue.increment(1));
+
                         }else{
                             Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
                         }
@@ -183,10 +190,20 @@ public class ShoppingListFragment extends Fragment {
                     public void onClick(View v) {
                         int count =  mShoppingListItem.getQuantity();
                         if(count >1){
-                            count --;
-                            mBinding.textViewQuantity.setText(String.valueOf(count));
+//                            count --;
+//                            mBinding.textViewQuantity.setText(String.valueOf(count));
+                            db.collection("lists").document(mShoppingList.getDocId())
+                                    .collection("items")
+                                    .document(mShoppingListItem.getDocId())
+                                    .update("quantity", FieldValue.increment(-1));
                         }else{
-                            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+
+                            db.collection("lists").document(mShoppingList.getDocId())
+                                    .collection("items")
+                                    .document(mShoppingListItem.getDocId())
+                                    .delete();
+
                         }
 
 
