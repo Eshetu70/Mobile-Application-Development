@@ -101,7 +101,7 @@ public class ReviewsFragment extends Fragment {
            binding.buttonCreateReview.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   mlistener.gotoCreateRew(mProduct, mReviews);
+                   mlistener.gotoCreateRew(mProduct);
 
                }
            });
@@ -112,7 +112,7 @@ public class ReviewsFragment extends Fragment {
         //https://www.theappsdr.com/api/product/reviews/31b100f4-ec80-4ef7-8ba9-05575e54499f
 
         Request request = new Request.Builder()
-                .url("https://www.theappsdr.com/api/product/reviews/31b100f4-ec80-4ef7-8ba9-05575e54499f")
+                .url("https://www.theappsdr.com/api/product/reviews/"+ mProduct.getPid())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -127,6 +127,7 @@ public class ReviewsFragment extends Fragment {
                 if(response.isSuccessful()){
                     String body = response.body().string();
                     try {
+                        mReviews.clear();
                         JSONObject jsonObject = new JSONObject(body);
                         JSONArray jsonArray = jsonObject.getJSONArray("reviews");
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -179,21 +180,18 @@ public class ReviewsFragment extends Fragment {
             mBinding.textViewReviewDate.setText(review.getCreated_at());
             Picasso.get().load(review.getReview()).into(mBinding.imageViewReviewRating);
 
-           double rating = Double.parseDouble((review.getRating()));
-            if(rating==1){
-                mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_1);
-            }else if(rating==2){
-                mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_2);
-            }else if(rating==3){
-                mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_3);
-            }else if(rating==4){
-                mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_4);
-            }else if(rating==5){
-                mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_5);
-            }else{
-               mBinding.imageViewReviewRating.setImageResource(R.drawable.stars_5);
-            }
+          if(review.getRating().equals("1")){
+              Picasso.get().load(R.drawable.stars_1).into(mBinding.imageViewReviewRating);
+            }else if(review.getRating().equals("2")){
+              Picasso.get().load(R.drawable.stars_2).into(mBinding.imageViewReviewRating);
+            }else if(review.getRating().equals("3")){
+                Picasso.get().load(R.drawable.stars_3).into(mBinding.imageViewReviewRating);
+            }else if(review.getRating().equals("4")){
+                Picasso.get().load(R.drawable.stars_4).into(mBinding.imageViewReviewRating);
+            }else if(review.getRating().equals("5")){
+                Picasso.get().load(R.drawable.stars_5).into(mBinding.imageViewReviewRating);
 
+          }
 
             return convertView;
         }
@@ -208,6 +206,6 @@ public class ReviewsFragment extends Fragment {
     }
 
     interface ReviewListener{
-        void gotoCreateRew(Product product, ArrayList<Review> mReviews);
+        void gotoCreateRew(Product product);
     }
 }

@@ -49,4 +49,13 @@ public class Review implements Serializable {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "review='" + review + '\'' +
+                ", rating='" + rating + '\'' +
+                ", created_at='" + created_at + '\'' +
+                '}';
+    }
 }

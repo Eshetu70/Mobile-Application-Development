@@ -40,7 +40,7 @@ public class CreateReviewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM_PRODUCT = "ARG_PARAM_PRODUCT";
-    private static final String ARG_PARAM_Review = " ARG_PARAM_Review";
+//    private static final String ARG_PARAM_Review = " ARG_PARAM_Review";
 
     // TODO: Rename and change types of parameters
     private Product mProduct;
@@ -51,11 +51,11 @@ public class CreateReviewFragment extends Fragment {
     }
 
 
-    public static CreateReviewFragment newInstance(Product product, ArrayList<Review> review) {
+    public static CreateReviewFragment newInstance(Product product) {
         CreateReviewFragment fragment = new CreateReviewFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM_PRODUCT, product);
-        args.putSerializable(ARG_PARAM_Review, review);
+//        args.putSerializable(ARG_PARAM_Review, review);
 
 
         fragment.setArguments(args);
@@ -67,7 +67,7 @@ public class CreateReviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mProduct = (Product) getArguments().getSerializable(ARG_PARAM_PRODUCT);
-            nReviews = (ArrayList<Review>) getArguments().getSerializable(ARG_PARAM_Review);
+//            nReviews = (ArrayList<Review>) getArguments().getSerializable(ARG_PARAM_Review);
         }
     }
 
@@ -93,11 +93,21 @@ public class CreateReviewFragment extends Fragment {
             public void onClick(View view) {
 
 
-
-
                 String review =  binding.editTextReview.getText().toString();
                 String pid = mProduct.getPid();
-                int rating =binding.radioGroup.getCheckedRadioButtonId();
+                int rating = 0;
+                if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButton_level_1){
+                    rating = 1;
+                } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButton_level_2){
+                    rating = 2;
+                } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButton_level_3){
+                    rating = 3;
+                } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButton_level_4){
+                    rating = 4;
+                } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButton_level_5){
+                    rating = 5;
+                }
+
                 Log.d("demo", "onViewCreated: ");
                 if(review.isEmpty()){
                     Toast.makeText(getActivity(), "enter Review", Toast.LENGTH_SHORT).show();
@@ -111,7 +121,7 @@ public class CreateReviewFragment extends Fragment {
                     RequestBody formBody = new FormBody.Builder()
                             .add("pid", mProduct.getPid() )
                             .add("review", review )
-                            .add("rating","rating")
+                            .add("rating",rating+"")
                             .build();
                     Request request = new Request.Builder()
                             .url("https://www.theappsdr.com/api/product/review")
@@ -134,7 +144,12 @@ public class CreateReviewFragment extends Fragment {
                                     }
                                 });
                             }else{
-                                mlistener.gotoBack();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
                     });

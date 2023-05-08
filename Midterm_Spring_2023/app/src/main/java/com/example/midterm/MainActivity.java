@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity implements ProductsFragment.
     }
 
     @Override
-    public void gotoCreateRew(Product product, ArrayList<Review> mReviews) {
+    public void gotoCreateRew(Product product) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.rootView, CreateReviewFragment.newInstance(product, mReviews))
+                .replace(R.id.rootView, CreateReviewFragment.newInstance(product))
                 .addToBackStack(null)
                 .commit();
     }
