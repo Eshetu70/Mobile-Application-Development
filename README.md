@@ -6,7 +6,7 @@ To build and run the Android application, make sure you have the following prere
 - Android Studio: Download
 - Java Development Kit (JDK): Download
 
-##Getting Started
+## Getting Started
 - Clone the repository to your local machine using the following command:
 git status git clone https://github.com/your-username/repository-name.git
 - Open Android Studio and select "Open an existing Android Studio project."
