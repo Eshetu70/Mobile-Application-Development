@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Evaluation 10</string>
+    <string name="label_go">Go</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
