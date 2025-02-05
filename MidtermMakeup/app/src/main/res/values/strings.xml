@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Midterm Makeup</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="preference_file_key">shared.prefs</string>
+    <string name="letter">A</string>
+    <string name="logout">logout</string>
+    <string name="gpa">GPA:</string>
+    <string name="hours">Hours:</string>
+    <string name="course">Courses</string>
+    <string name="gradee">Grade:</string>
+    <string name="select">Select Grade</string>
+    <string name="selected">selectedGrade</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+</resources>
